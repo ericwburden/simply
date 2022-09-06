@@ -1,6 +1,6 @@
 # Simply Script
 
-This project provides a compiler for "simply script", a _super-simple_ scripting language
+This project provides an interpreter for "simply script", a _super-simple_ scripting language
 (inspired by Assembly) that is mostly used for coding puzzles.
 
 ## Syntax
@@ -75,3 +75,8 @@ If the value stored in |register 1| is less than |register 2|, store `1` in
 _out |register|_
 
 Print the value stored in |register| to standard out.
+
+## Usage
+
+Just write your "simply script" into a text file (like "file.simply") and run the 
+script with `simply file.simply`.
