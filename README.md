@@ -9,7 +9,7 @@ This project provides a compiler for "simply script", a _super-simple_ scripting
 
 ### Set Command
 
-_set <register> <value>_
+_set |register| |value|_
 
 Sets the value (32-bit integer) of the indicated register. Register names can be any
 combination of letters, numbers, and underscore characters, but must start with a letter.
@@ -17,61 +17,61 @@ This command essentially serves the purpose of assigning a value to a variable.
 
 ### Copy Command
 
-_cpy <register 1> <register 2>_
+_cpy |register 1| |register 2|_
 
-Copies the value from <register 1> to <register 2>.
+Copies the value from |register 1| to |register 2|.
 
 ### Add Command
 
-_add <register 1> <register 2>_
+_add |register 1| |register 2|_
 
-Adds the value stored in <register 1> to the value stored in <register 2>. Stores the
-final value in <register 2>.
+Adds the value stored in |register 1| to the value stored in |register 2|. Stores the
+final value in |register 2|.
 
 ### Sub Command
 
-_sub <register 1> <register 2>_
+_sub |register 1| |register 2|_
 
-Subtracts the value stored in <register 1> from the value stored in <register 2>. Stores
-the final value in <register 2>.
+Subtracts the value stored in |register 1| from the value stored in |register 2|. Stores
+the final value in |register 2|.
 
 ### Jump Command
 
-_jmp <register>_
+_jmp |register|_
 
-The next line to execute will be the line whose value is stored in <register>. Attempting
+The next line to execute will be the line whose value is stored in |register|. Attempting
 to jump to a line number less than `1` will result in a `NegativeExecutionPointer` error.
 
 ### Jump When Zero Command
 
-_jwz <register 1> <register 2>_
+_jwz |register 1| |register 2|_
 
-Check the value in <register 1>. If that value is `0`, continue execution at the line 
-number stored in <register 2>. Otherwise, continue execution with the next line.
+Check the value in |register 1|. If that value is `0`, continue execution at the line 
+number stored in |register 2|. Otherwise, continue execution with the next line.
 
 ### Jump Not Zero Command
 
-_jnz <register 1> <register 2>_
+_jnz |register 1| |register 2|_
 
-Check the value in <register 1>. If that value is *not* `0`, continue execution at the 
-line number stored in <register 2>. Otherwise, continue execution with the next line.
+Check the value in |register 1|. If that value is *not* `0`, continue execution at the 
+line number stored in |register 2|. Otherwise, continue execution with the next line.
 
 ### Greater Than Command
 
-_gth <register 1> <register 2>_
+_gth |register 1| |register 2|_
 
-If the value stored in <register 1> is greater than <register 2>, store `1` in 
-<register 2>, otherwise, store `-1` in <register 2>.
+If the value stored in |register 1| is greater than |register 2|, store `1` in 
+|register 2|, otherwise, store `-1` in |register 2|.
 
 ### Less Than Command
 
-_lth <register 1> <register 2>_
+_lth |register 1| |register 2|_
 
-If the value stored in <register 1> is less than <register 2>, store `1` in 
-<register 2>, otherwise, store `-1` in <register 2>.
+If the value stored in |register 1| is less than |register 2|, store `1` in 
+|register 2|, otherwise, store `-1` in |register 2|.
 
 ### Output Command
 
-_out <register>_
+_out |register|_
 
-Print the value stored in <register> to standard out.
+Print the value stored in |register| to standard out.
