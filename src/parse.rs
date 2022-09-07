@@ -54,6 +54,8 @@ fn two_register_keyword(input: &str) -> IResult<&str, &str> {
         tag("sub"),
         tag("jwz"),
         tag("jnz"),
+        tag("jwn"),
+        tag("jwp"),
         tag("gth"),
         tag("lth"),
     );
@@ -143,6 +145,14 @@ pub(crate) enum Instruction {
         register1: String,
         register2: String,
     },
+    Jwn {
+        register1: String,
+        register2: String,
+    },
+    Jwp {
+        register1: String,
+        register2: String,
+    },
     Gth {
         register1: String,
         register2: String,
@@ -204,6 +214,14 @@ impl From<(&str, &str, &str)> for Instruction {
                 register2: r2_string,
             },
             "jnz" => Instruction::Jnz {
+                register1: r1_string,
+                register2: r2_string,
+            },
+            "jwn" => Instruction::Jwn {
+                register1: r1_string,
+                register2: r2_string,
+            },
+            "jwp" => Instruction::Jwp {
                 register1: r1_string,
                 register2: r2_string,
             },

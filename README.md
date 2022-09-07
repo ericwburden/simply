@@ -49,6 +49,21 @@ _jwz |register 1| |register 2|_
 Check the value in |register 1|. If that value is `0`, continue execution at the line 
 number stored in |register 2|. Otherwise, continue execution with the next line.
 
+### Jump When Negative Command
+
+_jwz |register 1| |register 2|_
+
+Check the value in |register 1|. If that value is less than `0`, continue execution 
+at the line number stored in |register 2|. Otherwise, continue execution with the next 
+line.
+
+### Jump When Positive Command
+
+_jwz |register 1| |register 2|_
+
+Check the value in |register 1|. If that value is greater than `0`, continue execution at 
+the line number stored in |register 2|. Otherwise, continue execution with the next line.
+
 ### Jump Not Zero Command
 
 _jnz |register 1| |register 2|_

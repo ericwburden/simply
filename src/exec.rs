@@ -159,6 +159,40 @@ impl Execute for Instruction {
                     program.pointer = (target - 1) as usize;
                 }
             }
+            Instruction::Jwn {
+                register1,
+                register2,
+            } => {
+                let value = program.memory.get(register1).unwrap();
+                if *value < 0 {
+                    let target = *program.memory.get(register2).ok_or(ExecError::new(
+                        ExecErrorKind::UninitializedRegister(register2.to_owned()),
+                    ))?;
+                    if target < 1 {
+                        return Err(ExecError::new(ExecErrorKind::NegativeExecutionPointer));
+                    }
+                    program.pointer = (target - 1) as usize;
+                } else {
+                    program.pointer += 1;
+                }
+            }
+            Instruction::Jwp {
+                register1,
+                register2,
+            } => {
+                let value = program.memory.get(register1).unwrap();
+                if *value > 0 {
+                    let target = *program.memory.get(register2).ok_or(ExecError::new(
+                        ExecErrorKind::UninitializedRegister(register2.to_owned()),
+                    ))?;
+                    if target < 1 {
+                        return Err(ExecError::new(ExecErrorKind::NegativeExecutionPointer));
+                    }
+                    program.pointer = (target - 1) as usize;
+                } else {
+                    program.pointer += 1;
+                }
+            }
             Instruction::Gth {
                 register1,
                 register2,
