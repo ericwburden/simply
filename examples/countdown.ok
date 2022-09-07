@@ -1,0 +1,8 @@
+set num 25
+set one 1
+set A 9
+set B 5
+jwn num A
+out num
+sub one num
+jmp B

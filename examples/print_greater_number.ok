@@ -1,0 +1,10 @@
+set num1 18
+set num2 15
+set A 10
+set B 11
+cpy num2 compare
+gth num1 compare
+jwp compare A
+out num2
+jmp B
+out num1

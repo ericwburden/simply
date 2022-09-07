@@ -93,5 +93,42 @@ Print the value stored in |register| to standard out.
 
 ## Usage
 
-Just write your "simply script" into a text file (like "file.simply") and run the 
-script with `simply file.simply`.
+Just write your "simply script" into a text file (like "do_calculation.ok") and run the 
+script with `simply do_calculation.ok`.
+
+### Examples
+
+#### Countdown
+
+Sets input value to `num`, then prints all values counting down from `num` to zero. If
+`num` is negative, then nothing is printed.
+
+```
+set num 25
+set one 1
+set A 9
+set B 5
+jwn num A
+out num
+sub one num
+jmp B
+```
+
+#### Print Greater Number
+
+Sets input values to `num1` and `num2`, then identifies and returns the greater number.
+Just returns one of the numbers if they are equal. By convention, registers holding 
+line numbers for jumps are named "Excel-style" using capital letters (A-Z, AA-ZZ, etc.).
+
+```
+set num1 18
+set num2 15
+set A 10
+set B 11
+cpy num2 compare
+gth num1 compare
+jwp compare A
+out num2
+jmp B
+out num1
+```
