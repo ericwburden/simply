@@ -176,7 +176,7 @@ impl From<(&str, &str)> for Instruction {
             "jmp" => Instruction::Jmp {
                 register: reg.to_string(),
             },
-            "cpy" => Instruction::Chr {
+            "chr" => Instruction::Chr {
                 register: reg.to_string(),
             },
             _ => unreachable!(),
