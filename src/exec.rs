@@ -87,10 +87,10 @@ impl Execute for Instruction {
                 register1,
                 register2,
             } => {
-                let value = *program.memory.get(register1).ok_or(ExecError::new(
+                let value = *program.memory.get(register1).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register1.to_owned()),
                 ))?;
-                let add_to = program.memory.get_mut(register2).ok_or(ExecError::new(
+                let add_to = program.memory.get_mut(register2).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register2.to_owned()),
                 ))?;
                 *add_to += value;
@@ -100,24 +100,24 @@ impl Execute for Instruction {
                 register1,
                 register2,
             } => {
-                let value = *program.memory.get(register1).ok_or(ExecError::new(
+                let value = *program.memory.get(register1).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register1.to_owned()),
                 ))?;
-                let sub_from = program.memory.get_mut(register2).ok_or(ExecError::new(
+                let sub_from = program.memory.get_mut(register2).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register2.to_owned()),
                 ))?;
                 *sub_from -= value;
                 program.pointer += 1;
             }
             Instruction::Out { register } => {
-                let value = *program.memory.get(register).ok_or(ExecError::new(
+                let value = *program.memory.get(register).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register.to_owned()),
                 ))?;
                 println!("{}", value);
                 program.pointer += 1;
             }
             Instruction::Jmp { register } => {
-                let target = *program.memory.get(register).ok_or(ExecError::new(
+                let target = *program.memory.get(register).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register.to_owned()),
                 ))?;
                 if target < 1 {
@@ -131,7 +131,7 @@ impl Execute for Instruction {
             } => {
                 let value = program.memory.get(register1).unwrap();
                 if *value == 0 {
-                    let target = *program.memory.get(register2).ok_or(ExecError::new(
+                    let target = *program.memory.get(register2).ok_or_else(|| ExecError::new(
                         ExecErrorKind::UninitializedRegister(register2.to_owned()),
                     ))?;
                     if target < 1 {
@@ -150,7 +150,7 @@ impl Execute for Instruction {
                 if *value == 0 {
                     program.pointer += 1;
                 } else {
-                    let target = *program.memory.get(register2).ok_or(ExecError::new(
+                    let target = *program.memory.get(register2).ok_or_else(|| ExecError::new(
                         ExecErrorKind::UninitializedRegister(register2.to_owned()),
                     ))?;
                     if target < 1 {
@@ -165,7 +165,7 @@ impl Execute for Instruction {
             } => {
                 let value = program.memory.get(register1).unwrap();
                 if *value < 0 {
-                    let target = *program.memory.get(register2).ok_or(ExecError::new(
+                    let target = *program.memory.get(register2).ok_or_else(|| ExecError::new(
                         ExecErrorKind::UninitializedRegister(register2.to_owned()),
                     ))?;
                     if target < 1 {
@@ -182,7 +182,7 @@ impl Execute for Instruction {
             } => {
                 let value = program.memory.get(register1).unwrap();
                 if *value > 0 {
-                    let target = *program.memory.get(register2).ok_or(ExecError::new(
+                    let target = *program.memory.get(register2).ok_or_else(|| ExecError::new(
                         ExecErrorKind::UninitializedRegister(register2.to_owned()),
                     ))?;
                     if target < 1 {
@@ -197,10 +197,10 @@ impl Execute for Instruction {
                 register1,
                 register2,
             } => {
-                let value = *program.memory.get(register1).ok_or(ExecError::new(
+                let value = *program.memory.get(register1).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register1.to_owned()),
                 ))?;
-                let target = program.memory.get_mut(register2).ok_or(ExecError::new(
+                let target = program.memory.get_mut(register2).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register2.to_owned()),
                 ))?;
                 if value > *target {
@@ -214,10 +214,10 @@ impl Execute for Instruction {
                 register1,
                 register2,
             } => {
-                let value = *program.memory.get(register1).ok_or(ExecError::new(
+                let value = *program.memory.get(register1).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register1.to_owned()),
                 ))?;
-                let target = program.memory.get_mut(register2).ok_or(ExecError::new(
+                let target = program.memory.get_mut(register2).ok_or_else(|| ExecError::new(
                     ExecErrorKind::UninitializedRegister(register2.to_owned()),
                 ))?;
                 if value < *target {
@@ -227,6 +227,15 @@ impl Execute for Instruction {
                 }
                 program.pointer += 1;
             }
+            Instruction::Chr { register } => {
+                let value = *program.memory.get(register).ok_or_else(|| ExecError::new(
+                    ExecErrorKind::UninitializedRegister(register.to_owned()),
+                ))?;
+                let out_char = u32::try_from(value).ok().and_then(char::from_u32).unwrap_or('·');
+                println!("{out_char}");
+                program.pointer += 1;
+            }
+            
         }
         Ok(())
     }

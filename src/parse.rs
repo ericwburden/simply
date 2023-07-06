@@ -30,7 +30,7 @@ fn register(input: &str) -> IResult<&str, &str> {
 /// There is a subset of valid instructions in the form "<keyword> <register>". This
 /// function parses the valid keywords for this form of instruction.
 fn one_register_keyword(input: &str) -> IResult<&str, &str> {
-    let tags = (tag("out"), tag("jmp"));
+    let tags = (tag("out"), tag("jmp"), tag("chr"));
     alt(tags)(input)
 }
 
@@ -161,6 +161,9 @@ pub(crate) enum Instruction {
         register1: String,
         register2: String,
     },
+    Chr {
+        register: String,
+    },
 }
 
 impl From<(&str, &str)> for Instruction {
@@ -171,6 +174,9 @@ impl From<(&str, &str)> for Instruction {
                 register: reg.to_string(),
             },
             "jmp" => Instruction::Jmp {
+                register: reg.to_string(),
+            },
+            "cpy" => Instruction::Chr {
                 register: reg.to_string(),
             },
             _ => unreachable!(),

@@ -91,6 +91,14 @@ _out |register|_
 
 Print the value stored in |register| to standard out.
 
+### Character Command
+
+_chr |register|_
+
+Print the value stored in |register| to standard out as an ASCII character if the value
+is a valid ASCII character code. If the character does not represent a valid ASCII
+character code, prints a '·' character instead.
+
 ## Usage
 
 Just write your "simply script" into a text file (like "do_calculation.ok") and run the 
