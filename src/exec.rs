@@ -232,7 +232,7 @@ impl Execute for Instruction {
                     ExecErrorKind::UninitializedRegister(register.to_owned()),
                 ))?;
                 let out_char = u32::try_from(value).ok().and_then(char::from_u32).unwrap_or('·');
-                println!("{out_char}");
+                print!("{out_char}");
                 program.pointer += 1;
             }
             
